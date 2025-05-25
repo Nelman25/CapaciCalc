@@ -1,14 +1,15 @@
+import { useInputStore } from "@/stores/useInputStore";
+import type { CircuitMode } from "@/types";
 import { Zap } from "lucide-react";
 
-type OperationModeProps = {
-  operation: string;
-  setOperation: React.Dispatch<React.SetStateAction<string>>;
-};
+// type OperationModeProps = {
+//   operation: string;
+//   setOperation: React.Dispatch<React.SetStateAction<string>>;
+// };
 
-export default function OperationMode({
-  operation,
-  setOperation,
-}: OperationModeProps) {
+export default function OperationMode() {
+  const { mode, setMode } = useInputStore();
+  
   return (
     <div className="p-4 rounded shadow bg-softBlue-100">
       <div className="flex items-center gap-2 mb-4">
@@ -22,25 +23,25 @@ export default function OperationMode({
             type="radio"
             name="operation"
             value="charge"
-            checked={operation === "charge"}
-            onChange={(e) => setOperation(e.target.value)}
+            checked={mode === "charge"}
+            onChange={(e) => setMode(e.target.value as CircuitMode)}
             className="sr-only"
           />
           <div
             className={`flex items-center gap-2 px-3 py-1 rounded-xl border-2 transition-all ${
-              operation === "charge"
+              mode === "charge"
                 ? "border-blue-500 bg-blue-50 text-blue-700"
                 : "border-gray-200 bg-white hover:border-gray-300"
             }`}
           >
             <div
               className={`w-4 h-4 rounded-full border-2 ${
-                operation === "charge"
+                mode === "charge"
                   ? "border-blue-500 bg-blue-500"
                   : "border-gray-300"
               }`}
             >
-              {operation === "charge" && (
+              {mode === "charge" && (
                 <div className="w-2 h-2 bg-white rounded-full m-0.5"></div>
               )}
             </div>
@@ -53,25 +54,25 @@ export default function OperationMode({
             type="radio"
             name="operation"
             value="discharge"
-            checked={operation === "discharge"}
-            onChange={(e) => setOperation(e.target.value)}
+            checked={mode === "discharge"}
+            onChange={(e) => setMode(e.target.value as CircuitMode)}
             className="sr-only"
           />
           <div
             className={`flex items-center gap-3 px-3 py-1 rounded-xl border-2 transition-all ${
-              operation === "discharge"
+              mode === "discharge"
                 ? "border-blue-500 bg-blue-50 text-blue-700"
                 : "border-gray-200 bg-white hover:border-gray-300"
             }`}
           >
             <div
               className={`w-4 h-4 rounded-full border-2 ${
-                operation === "discharge"
+                mode === "discharge"
                   ? "border-blue-500 bg-blue-500"
                   : "border-gray-300"
               }`}
             >
-              {operation === "discharge" && (
+              {mode === "discharge" && (
                 <div className="w-2 h-2 bg-white rounded-full m-0.5"></div>
               )}
             </div>

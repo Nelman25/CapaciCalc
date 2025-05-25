@@ -1,11 +1,29 @@
+import { useInputStore } from "@/stores/useInputStore";
 import circuit from "../assets/circuit.svg";
 import { SelectComponent } from "./SelectComponent";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { Slider } from "./ui/slider";
 
 export default function InputForm() {
+  const {
+    mode,
+    tau,
+    capacitance,
+    resistance,
+    resistanceUnit,
+    setResistance,
+    voltage,
+    setVoltage,
+    time,
+    timeUnit,
+    setTime,
+    capacitanceUnit,
+    setCapacitance,
+    calculate,
+  } = useInputStore();
+
+  console.log({ mode, capacitance, resistance, voltage, time, tau });
   return (
     <div className="p-4 rounded shadow bg-softBlue-100">
       <div className="flex items-center gap-2 mb-4">
@@ -21,8 +39,18 @@ export default function InputForm() {
           <span className="text-red-500">*</span>
         </div>
         <div className="flex space-x-2">
-          <Input type="number" className="bg-white" defaultValue={0} />
-          <SelectComponent />
+          <Input
+            type="number"
+            className="bg-white"
+            value={capacitance}
+            onChange={(e) => setCapacitance(e.target.valueAsNumber)}
+          />
+          <SelectComponent
+            currentValue={capacitance}
+            currentUnit={capacitanceUnit}
+            options={["F", "μF", "nF", "pF"]}
+            setFn={setCapacitance}
+          />
         </div>
       </div>
 
@@ -32,8 +60,18 @@ export default function InputForm() {
           <span className="text-red-500">*</span>
         </div>
         <div className="flex space-x-2">
-          <Input type="number" className="bg-white" defaultValue={0} />
-          <SelectComponent />
+          <Input
+            type="number"
+            className="bg-white"
+            value={resistance}
+            onChange={(e) => setResistance(e.target.valueAsNumber)}
+          />
+          <SelectComponent
+            currentValue={resistance}
+            currentUnit={resistanceUnit}
+            options={["Ω", "kΩ", "MΩ"]}
+            setFn={setResistance}
+          />
         </div>
       </div>
 
@@ -43,8 +81,18 @@ export default function InputForm() {
           <span className="text-red-500">*</span>
         </div>
         <div className="flex space-x-2">
-          <Input type="number" className="bg-white" defaultValue={0} />
-          <SelectComponent />
+          <Input
+            type="number"
+            className="bg-white"
+            value={time}
+            onChange={(e) => setTime(e.target.valueAsNumber)}
+          />
+          <SelectComponent
+            currentUnit={timeUnit}
+            currentValue={time}
+            options={["s", "ms"]}
+            setFn={setTime}
+          />
         </div>
       </div>
 
@@ -54,22 +102,22 @@ export default function InputForm() {
           <span className="text-red-500">*</span>
         </div>
         <div className="flex space-x-2">
-          <Input type="number" className="bg-white" defaultValue={0} />
+          <Input
+            type="number"
+            className="bg-white"
+            value={voltage}
+            onChange={(e) => setVoltage(e.target.valueAsNumber)}
+          />
           <div className="flex items-center justify-center px-6 bg-white border rounded-md">
             <span className="font-light text-gray-700">V</span>
           </div>
         </div>
       </div>
 
-      <div className="mt-4">
-        <Slider className="bg-red-100" defaultValue={[33]} max={100} step={1} />
-        <div className="flex justify-between mt-2">
-          <span className="text-gray-700">0</span>
-          <span className="text-gray-700">5τ (Time Constant)</span>
-        </div>
-      </div>
-
-      <Button className="w-full my-4 bg-blue-500 hover:bg-blue-600">
+      <Button
+        onClick={() => calculate()}
+        className="w-full my-4 bg-blue-500 hover:bg-blue-600"
+      >
         Calculate Result
       </Button>
     </div>
