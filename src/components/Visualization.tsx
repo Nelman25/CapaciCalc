@@ -4,7 +4,15 @@ import { CapacitorGraph } from "./CapacitorGraph";
 import { useInputStore } from "@/stores/useInputStore";
 
 export default function Visualization() {
-  const { currentVoltage, time, tau, maxTime } = useInputStore();
+  const {
+    currentVoltage,
+    capacitance,
+    resistance,
+    voltage,
+    time,
+    tau,
+    maxTime,
+  } = useInputStore();
 
   return (
     <div className="flex flex-col p-4 rounded shadow bg-softBlue-100">
@@ -14,7 +22,11 @@ export default function Visualization() {
           R/C Discharge curve
         </h3>
       </div>
-      {time === 0 ? <GraphPlaceholder /> : <CapacitorGraph />}
+      {time === 0 || capacitance === 0 || voltage === 0 || resistance === 0 ? (
+        <GraphPlaceholder />
+      ) : (
+        <CapacitorGraph />
+      )}
       <div className="grid w-full grid-cols-3 gap-2 mt-4">
         <div className="p-4 bg-white rounded shadow">
           <span className="block text-sm text-gray-700">Time constant (τ)</span>

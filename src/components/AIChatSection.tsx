@@ -29,7 +29,7 @@ export default function AIChatSection() {
     setMessage("");
   };
   return (
-    <div className="flex flex-col col-span-3 max-h-[800px] p-4 rounded shadow bg-softBlue-100">
+    <div className="flex flex-col col-span-2 max-h-[800px] p-4 rounded shadow bg-softBlue-100">
       <div className="flex items-center gap-2 pb-4 mb-4 border-b">
         <MessageCircle className="w-5 h-5 text-[#0D99FF]" />
         <h3 className="text-lg font-semibold text-gray-800">AI Assistant</h3>
@@ -39,9 +39,17 @@ export default function AIChatSection() {
       <div className="flex-1 min-h-0 gap-4 p-3 overflow-y-auto thin-scrollbar">
         {messages.map((message) =>
           message.sender === "AI" ? (
-            <AIMessage message={message.text} createdAt={message.createdAt} />
+            <AIMessage
+              key={message.text}
+              message={message.text}
+              createdAt={message.createdAt}
+            />
           ) : (
-            <UserMessage message={message.text} createdAt={message.createdAt} />
+            <UserMessage
+              key={message.text}
+              message={message.text}
+              createdAt={message.createdAt}
+            />
           )
         )}
       </div>
