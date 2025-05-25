@@ -8,20 +8,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function SelectComponent() {
+type SelectComponentProps<T extends string> = {
+  options: T[];
+  currentValue: number;
+  currentUnit: T;
+  setFn: (value: number, unit?: T) => void;
+};
+
+export function SelectComponent<T extends string>({
+  options,
+  currentValue,
+  currentUnit,
+  setFn,
+}: SelectComponentProps<T>) {
   return (
-    <Select>
+    <Select
+      onValueChange={(unit) => setFn(currentValue, unit as T)}
+      value={currentUnit}
+    >
       <SelectTrigger className="w-[180px] bg-white">
-        <SelectValue placeholder="Select a fruit" />
+        <SelectValue placeholder={options[0]} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Fruits</SelectLabel>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
+          <SelectLabel>Unit</SelectLabel>
+          {options.map((option) => (
+            <SelectItem key={option} value={option}>
+              {option}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>
