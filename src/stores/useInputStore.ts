@@ -39,8 +39,8 @@ export const useInputStore = create<CalculatorState>((set, get) => ({
   time: 0,
   timeUnit: "s",
 
-  tau: 0.000,
-  maxTime: 0.000,
+  tau: 0.0,
+  maxTime: 0.0,
   currentVoltage: 0,
   graphData: [],
 
@@ -105,10 +105,7 @@ export const useInputStore = create<CalculatorState>((set, get) => ({
         ? voltage * (1 - Math.exp(-time / tau))
         : voltage * Math.exp(-time / tau);
 
-    const timePoints = Array.from(
-      { length: 100 },
-      (_, i) => (i * maxTime) / 99
-    );
+    const timePoints = Array.from({ length: 50 }, (_, i) => (i * maxTime) / 99);
     const graphData = timePoints.map((t) => ({
       time: t,
       voltage:

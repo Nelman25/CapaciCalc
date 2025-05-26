@@ -15,20 +15,3 @@ export const getRelativeTimeAgo = (date: string | Date): string => {
     return `${diffInHours}hr${diffInHours > 1 ? "s" : ""} ago`;
   else return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
 };
-
-// Generate data points from 0 to 5τ
-// const generateChartData = (
-//   mode: "charge" | "discharge",
-//   V0: number,
-//   τ: number
-// ) => {
-//   const data = [];
-//   for (let t = 0; t <= 5 * τ; t += τ / 20) {
-//     data.push({
-//       time: t,
-//       voltage:
-//         mode === "charge" ? V0 * (1 - Math.exp(-t / τ)) : V0 * Math.exp(-t / τ),
-//     });
-//   }
-//   return data;
-// };
